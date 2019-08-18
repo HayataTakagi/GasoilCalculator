@@ -32,7 +32,6 @@
             const self = this;
             axios.get("http://localhost:1991/gasoil")
                 .then((res) => {
-                    console.log(res.data);
                     self.prices = res.data.fuels
                 })
         },

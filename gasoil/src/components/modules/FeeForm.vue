@@ -4,7 +4,7 @@
             v-model="valid"
             lazy-validation
     >
-        <v-radio-group v-model="oil_type" :mandatory="true">
+        <v-radio-group v-model="oil_type" :mandatory="true" label="油種">
             <v-radio :label="`レギュラー ${oilPrices.regular.price}(¥/ℓ)`" value="regular"></v-radio>
             <v-radio :label="`ハイオク ${oilPrices.high_octane.price}(¥/ℓ)`" value="high_octane"></v-radio>
             <v-radio :label="`軽油 ${oilPrices.light.price}(¥/ℓ)`" value="light"></v-radio>
@@ -17,20 +17,27 @@
                 required
         ></v-text-field>
 
-        <v-select
-                v-model="selectFuel"
-                :items="items"
-                item-text="carName"
+        <v-autocomplete
+                v-model="selectCarFuel"
+                :items="cars"
+                :loading="isLoading"
+                :search-input.sync="search"
+                :hint="`${Object.keys(selectCarFuel).length ? '燃費: ' + selectCarFuel.fuelEconomy + ' (km/l)' : '車種を選択して下さい'}`"
+                color="primary"
+                hide-no-data
+                hide-selected
+                item-text="name"
                 item-value="fuelEconomy"
-                :hint="`燃費: ${selectFuel.fuelEconomy} (km/l)`"
-                :rules="[v => !!v || 'Item is required']"
                 label="車種"
+                placeholder="Start typing to Search"
+                prepend-icon="mdi-database-search"
                 persistent-hint
                 return-object
+                :rules="[v => Object.keys(selectCarFuel).length !== 0 || '車種を選択して下さい']"
                 required
-        ></v-select>
+        ></v-autocomplete>
 
-        <ResultDialog :oilPrice="calculate()" :valid="valid"/>
+        <ResultDialog :oilPrice="calculatePrice()" :co2Amount="calculateCo2()" :valid="valid" @validate="validate" :dialog="dialog"/>
         <v-btn
                 color="error"
                 class="mr-4"
@@ -51,32 +58,48 @@
         },
         name: "FeeForm",
         data: () => ({
-            valid: true,
+            valid: false,
             roadLength: 150,
             lengthRules: [
                 v => !!v || '距離は必須項目です',
                 v => !isNaN(parseInt(v, 10)) || '数値を入力してください',
             ],
-            selectFuel: { carName: 'ハイブリッド車 [20(km/ℓ)]', fuelEconomy: 20 },
-            items: [
-                { carName: 'ハイブリッド車 [20(km/ℓ)]', fuelEconomy: 20 },
-                { carName: 'ガソリン車 [10(km/ℓ)]', fuelEconomy: 10 },
-                { carName: '大型車 [8(km/ℓ)]', fuelEconomy: 8 },
-            ],
             checkbox: false,
-            oil_type: "regular"
+            oil_type: "regular",
+            selectCarFuel: {},
+            descriptionLimit: 60,
+            cars: [],
+            isLoading: false,
+            model: null,
+            search: null,
+            dialog: false
         }),
         methods: {
-            calculate: function() {
-                const result = ( this.roadLength / this.selectFuel.fuelEconomy ) * this.oilPrice;
+            calculatePrice: function() {
+                const result = ( this.roadLength / this.selectCarFuel.fuelEconomy ) * this.oilPrice;
                 return result;
+            },
+            calculateCo2: function() {
+                const CO2_MATRIX = {
+                    regular: 2.3,
+                    high_octane: 2.3,
+                    light: 2.6
+                };
+                const TREE_CO2 = 14; // 一年に杉の木が吸収するCO2(kg)
+                const amountFuel = this.roadLength / this.selectCarFuel.fuelEconomy;
+                const co2Amount = amountFuel * CO2_MATRIX[this.oil_type];
+                const treeAmount = (co2Amount / TREE_CO2).toFixed(2);
+                return {co2: co2Amount, tree: treeAmount};
             },
             reset () {
                 this.oil_type = "regular";
-                this.oilPrice = this.oilPrices.regular.price;
                 this.roadLength = 0;
-                this.selectFuel = { carName: 'ハイブリッド車 [20(km/ℓ)]', fuelEconomy: 20 };
-                this.valid = false;
+                this.selectCarFuel = {};
+            },
+            validate () {
+                if(this.$refs.form.validate()) {
+                    this.dialog = false;
+                }
             },
         },
         props: {
@@ -85,6 +108,30 @@
         computed: {
             oilPrice: function () {
                 return this.oilPrices[this.oil_type].price
+            },
+        },
+        watch: {
+            search (val) {
+                // Items have already been loaded
+                if (this.cars.length > 0) return;
+
+                // Items have already been requested
+                if (this.isLoading) return;
+
+                this.isLoading = true;
+
+                // Lazily load input items
+                fetch('http://localhost:1991/car')
+                    .then(res => res.json())
+                    .then(res => {
+                        const { count, cars } = res;
+                        this.count = count;
+                        this.cars = cars
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+                    .finally(() => (this.isLoading = false))
             },
         },
     }
