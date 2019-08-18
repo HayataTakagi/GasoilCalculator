@@ -88,7 +88,7 @@ func (s *Server) Route() *mux.Router {
 	gasOilController := controller.NewGaOil()
 	r.Methods(http.MethodGet).Path("/gasoil").Handler(commonChain.Then(AppHandler{gasOilController.Index}))
 
-	carController := controller.NewCar()
+	carController := controller.NewCar(s.db)
 	r.Methods(http.MethodGet).Path("/car").Handler(commonChain.Then(AppHandler{carController.Index}))
 
 	r.PathPrefix("").Handler(commonChain.Then(http.StripPrefix("/img", http.FileServer(http.Dir("./img")))))

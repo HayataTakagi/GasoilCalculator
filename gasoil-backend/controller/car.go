@@ -1,25 +1,30 @@
 package controller
 
 import (
-	"fmt"
+	"github.com/jmoiron/sqlx"
 	"github.com/voyagegroup/treasure-app/model"
+	"github.com/voyagegroup/treasure-app/repository"
 	"net/http"
-	"os"
 )
 
-type Car struct {}
+type Car struct {
+	db *sqlx.DB
+}
 
-func NewCar() *Car {
-	return &Car{}
+func NewCar(db *sqlx.DB) *Car {
+	return &Car{db: db}
 }
 
 func (c *Car) Index(w http.ResponseWriter, r *http.Request) (int, interface{}, error) {
+	cars, err := repository.AllCar(c.db)
+	if err != nil {
+		return http.StatusInternalServerError, nil, err
+	}
 	carRes := model.CarResponse{}
 	url := "https://e-nenpi.com/"
-	cars := []model.Car{{Name: "トヨタ ヴィッツ（ハイブリッド）", FuelEconomy: 26.70},{Name: "トヨタ プリウス", FuelEconomy: 24.65},}
 	carRes.URL = url
 	carRes.Cars = cars
+	carRes.UpdatedAt = "2019/08/19"
 	carRes.Count = int64(len(cars))
-	fmt.Fprintf(os.Stdout ,"Res: %v\n", carRes)
 	return http.StatusOK, carRes, nil
 }

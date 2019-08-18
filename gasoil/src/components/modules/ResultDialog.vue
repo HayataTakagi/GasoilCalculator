@@ -7,9 +7,9 @@
             <v-card-title>
                 <span class="headline">計算結果</span>
             </v-card-title>
-            <v-card-text>ガソリン代: {{ this.oilPrice.toLocaleString() }}円</v-card-text>
-            <v-card-text>CO2排出量: {{ this.co2Amount.co2.toLocaleString() }}kg</v-card-text>
-            <v-card-text>杉の木: {{ this.co2Amount.tree.toLocaleString() }}本</v-card-text>
+            <v-card-text>ガソリン代: 約{{ parseInt(this.oilPrice).toLocaleString() }}円</v-card-text>
+            <v-card-text>CO2排出量: 約{{ parseInt(this.co2Amount.co2).toLocaleString() }}kg</v-card-text>
+            <v-card-text>杉の木: {{ parseFloat(this.co2Amount.tree).toFixed(1).toLocaleString() }}本</v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="green darken-1" text @click="dialog = false">閉じる</v-btn>
