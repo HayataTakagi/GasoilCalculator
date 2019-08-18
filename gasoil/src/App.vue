@@ -15,7 +15,7 @@
       </v-btn>
     </v-app-bar>
 
-    <v-content>
+    <v-content class="py-0">
 <!--      <HelloWorld/>-->
       <router-view></router-view>
     </v-content>

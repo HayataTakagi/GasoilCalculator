@@ -33,12 +33,12 @@ func (g *GasOil) Index(w http.ResponseWriter, r *http.Request) (int, interface{}
 		gasPrice := model.GasPrice{}
 		gasPrice.Type = replaceType(oilType)
 		gasPrice.Price = parsePrice(stringPrice)
+		setFuel(gasPrice, &gasRes.Fuels)
 		if err != nil {
 			panic(err)
 		}
-		gasRes.Fuels = append(gasRes.Fuels, gasPrice)
 	})
-	fmt.Fprintf(os.Stdout ,"Res: %#v\n", gasRes)
+	fmt.Fprintf(os.Stdout ,"Res: %v\n", gasRes)
 	return http.StatusOK, gasRes, nil
 }
 
@@ -67,4 +67,17 @@ func replaceType(JapType string) string {
 		"灯油", "kerosene",
 		)
 	return r.Replace(JapType)
+}
+
+func setFuel(price model.GasPrice, fuels *model.Fuels) {
+	switch price.Type {
+	case "regular":
+		fuels.Regular = price
+	case "high_octane":
+		fuels.HighOctane = price
+	case "light":
+		fuels.Light = price
+	case "kerosene":
+		fuels.Kerosene = price
+	}
 }
