@@ -4,6 +4,12 @@
             v-model="valid"
             lazy-validation
     >
+        <v-radio-group v-model="oil_type" :mandatory="true">
+            <v-radio :label="`レギュラー ${oilPrices.regular.price}(¥/ℓ)`" value="regular"></v-radio>
+            <v-radio :label="`ハイオク ${oilPrices.high_octane.price}(¥/ℓ)`" value="high_octane"></v-radio>
+            <v-radio :label="`軽油 ${oilPrices.light.price}(¥/ℓ)`" value="light"></v-radio>
+        </v-radio-group>
+
         <v-text-field
                 v-model="roadLength"
                 :rules="lengthRules"
@@ -41,24 +47,24 @@
 
     export default {
         components: {
-            ResultDialog
+            ResultDialog,
         },
         name: "FeeForm",
         data: () => ({
-            oilPrice: 120,
             valid: true,
             roadLength: 150,
             lengthRules: [
                 v => !!v || '距離は必須項目です',
                 v => !isNaN(parseInt(v, 10)) || '数値を入力してください',
             ],
-            selectFuel: { carName: 'ハイブリッド車', fuelEconomy: 20 },
+            selectFuel: { carName: 'ハイブリッド車 [20(km/ℓ)]', fuelEconomy: 20 },
             items: [
-                { carName: 'ハイブリッド車', fuelEconomy: 20 },
-                { carName: 'ガソリン車', fuelEconomy: 10 },
-                { carName: '大型車', fuelEconomy: 8 },
+                { carName: 'ハイブリッド車 [20(km/ℓ)]', fuelEconomy: 20 },
+                { carName: 'ガソリン車 [10(km/ℓ)]', fuelEconomy: 10 },
+                { carName: '大型車 [8(km/ℓ)]', fuelEconomy: 8 },
             ],
             checkbox: false,
+            oil_type: "regular"
         }),
         methods: {
             calculate: function() {
@@ -66,11 +72,21 @@
                 return result;
             },
             reset () {
-                this.roadLength = "";
-                this.selectFuel = { carName: 'ハイブリッド車', fuelEconomy: 20 };
+                this.oil_type = "regular";
+                this.oilPrice = this.oilPrices.regular.price;
+                this.roadLength = 0;
+                this.selectFuel = { carName: 'ハイブリッド車 [20(km/ℓ)]', fuelEconomy: 20 };
                 this.valid = false;
             },
-        }
+        },
+        props: {
+            oilPrices: Object,
+        },
+        computed: {
+            oilPrice: function () {
+                return this.oilPrices[this.oil_type].price
+            },
+        },
     }
 </script>
 
