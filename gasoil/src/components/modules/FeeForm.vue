@@ -91,7 +91,8 @@
                 const CO2_MATRIX = {
                     regular: 2.3,
                     high_octane: 2.3,
-                    light: 2.6
+                    light: 2.6,
+                    optional: 2.3,
                 };
                 const TREE_CO2 = 14; // 一年に杉の木が吸収するCO2(kg)
                 const amountFuel = this.roadLength / this.selectCarFuel.fuelEconomy;
