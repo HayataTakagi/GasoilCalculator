@@ -4,7 +4,7 @@ import (
 	"database/sql"
 
 	"github.com/jmoiron/sqlx"
-	"github.com/voyagegroup/treasure-app/model"
+	"github.com/HayataTakagi/treasure-app/model"
 )
 
 func GetUser(db *sqlx.DB, uid string) (*model.User, error) {

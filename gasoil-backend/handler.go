@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/voyagegroup/treasure-app/httputil"
+	"github.com/HayataTakagi/treasure-app/httputil"
 )
 
 type AppHandler struct {

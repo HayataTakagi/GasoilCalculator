@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/pkg/errors"
-	"github.com/voyagegroup/treasure-app/model"
+	"github.com/HayataTakagi/treasure-app/model"
 )
 
 type contextKey string

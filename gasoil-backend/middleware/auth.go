@@ -7,9 +7,9 @@ import (
 
 	"firebase.google.com/go/auth"
 	"github.com/jmoiron/sqlx"
-	"github.com/voyagegroup/treasure-app/httputil"
-	"github.com/voyagegroup/treasure-app/model"
-	"github.com/voyagegroup/treasure-app/repository"
+	"github.com/HayataTakagi/treasure-app/httputil"
+	"github.com/HayataTakagi/treasure-app/model"
+	"github.com/HayataTakagi/treasure-app/repository"
 )
 
 const (

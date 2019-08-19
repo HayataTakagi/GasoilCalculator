@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	server "github.com/voyagegroup/treasure-app"
+	server "github.com/HayataTakagi/treasure-app"
 )
 
 func main() {

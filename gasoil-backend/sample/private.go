@@ -5,8 +5,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/voyagegroup/treasure-app/httputil"
-	"github.com/voyagegroup/treasure-app/repository"
+	"github.com/HayataTakagi/treasure-app/httputil"
+	"github.com/HayataTakagi/treasure-app/repository"
 
 	"github.com/jmoiron/sqlx"
 )

@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/voyagegroup/treasure-app/model"
+	"github.com/HayataTakagi/treasure-app/model"
 )
 
 func TestUserContextValue(t *testing.T) {

@@ -2,8 +2,8 @@ package controller
 
 import (
 	"github.com/jmoiron/sqlx"
-	"github.com/voyagegroup/treasure-app/model"
-	"github.com/voyagegroup/treasure-app/repository"
+	"github.com/HayataTakagi/treasure-app/model"
+	"github.com/HayataTakagi/treasure-app/repository"
 	"net/http"
 )
 

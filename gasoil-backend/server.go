@@ -13,11 +13,11 @@ import (
 	"github.com/jmoiron/sqlx"
 	"github.com/justinas/alice"
 	"github.com/rs/cors"
-	"github.com/voyagegroup/treasure-app/controller"
-	db2 "github.com/voyagegroup/treasure-app/db"
-	"github.com/voyagegroup/treasure-app/firebase"
-	"github.com/voyagegroup/treasure-app/middleware"
-	"github.com/voyagegroup/treasure-app/sample"
+	"github.com/HayataTakagi/treasure-app/controller"
+	db2 "github.com/HayataTakagi/treasure-app/db"
+	"github.com/HayataTakagi/treasure-app/firebase"
+	"github.com/HayataTakagi/treasure-app/middleware"
+	"github.com/HayataTakagi/treasure-app/sample"
 )
 
 type Server struct {

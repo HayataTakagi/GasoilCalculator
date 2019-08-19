@@ -12,7 +12,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	"github.com/voyagegroup/treasure-app/firebase"
+	"github.com/HayataTakagi/treasure-app/firebase"
 )
 
 type FirebaseCustomToken struct {
