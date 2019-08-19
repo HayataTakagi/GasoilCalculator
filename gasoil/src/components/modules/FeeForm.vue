@@ -8,7 +8,14 @@
             <v-radio :label="`レギュラー ${oilPrices.regular.price}(¥/ℓ)`" value="regular"></v-radio>
             <v-radio :label="`ハイオク ${oilPrices.high_octane.price}(¥/ℓ)`" value="high_octane"></v-radio>
             <v-radio :label="`軽油 ${oilPrices.light.price}(¥/ℓ)`" value="light"></v-radio>
+            <v-radio label="任意" value="optional"></v-radio>
         </v-radio-group>
+        <v-text-field
+                v-model="userOilPrice"
+                :rules="[v => !isNaN(parseInt(v, 10)) || '数値を入力してください',]"
+                label="ガソリン価格"
+                :disabled="!isUserOilPrice"
+        ></v-text-field>
 
         <v-text-field
                 v-model="roadLength"
@@ -60,6 +67,7 @@
         data: () => ({
             valid: false,
             roadLength: 150,
+            userOilPrice: 120,
             lengthRules: [
                 v => !!v || '距離は必須項目です',
                 v => !isNaN(parseInt(v, 10)) || '数値を入力してください',
@@ -106,8 +114,11 @@
             oilPrices: Object,
         },
         computed: {
+            isUserOilPrice: function () {
+                return this.oil_type === "optional";
+            },
             oilPrice: function () {
-                return this.oilPrices[this.oil_type].price
+                return this.isUserOilPrice ? this.userOilPrice : this.oilPrices[this.oil_type].price;
             },
         },
         watch: {
