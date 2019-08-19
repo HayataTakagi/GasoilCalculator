@@ -13,11 +13,11 @@ import (
 	"github.com/jmoiron/sqlx"
 	"github.com/justinas/alice"
 	"github.com/rs/cors"
-	"github.com/voyagegroup/treasure-app/controller"
-	"github.com/voyagegroup/treasure-app/db"
-	"github.com/voyagegroup/treasure-app/firebase"
-	"github.com/voyagegroup/treasure-app/middleware"
-	"github.com/voyagegroup/treasure-app/sample"
+	"github.com/HayataTakagi/treasure-app/controller"
+	db2 "github.com/HayataTakagi/treasure-app/db"
+	"github.com/HayataTakagi/treasure-app/firebase"
+	"github.com/HayataTakagi/treasure-app/middleware"
+	"github.com/HayataTakagi/treasure-app/sample"
 )
 
 type Server struct {
@@ -37,8 +37,8 @@ func (s *Server) Init(datasource string) {
 	}
 	s.authClient = authClient
 
-	cs := db.NewDB(datasource)
-	dbcon, err := cs.Open()
+	db := db2.NewDB(datasource)
+	dbcon, err := db.Open()
 	if err != nil {
 		log.Fatalf("failed db init. %s", err)
 	}
@@ -85,15 +85,11 @@ func (s *Server) Route() *mux.Router {
 	r.Methods(http.MethodGet).Path("/public").Handler(commonChain.Then(sample.NewPublicHandler()))
 	r.Methods(http.MethodGet).Path("/private").Handler(authChain.Then(sample.NewPrivateHandler(s.db)))
 
-	articleController := controller.NewArticle(s.db)
-	r.Methods(http.MethodPost).Path("/articles").Handler(authChain.Then(AppHandler{articleController.Create}))
-	r.Methods(http.MethodPut).Path("/articles/{id}").Handler(authChain.Then(AppHandler{articleController.Update}))
-	r.Methods(http.MethodDelete).Path("/articles/{id}").Handler(authChain.Then(AppHandler{articleController.Destroy}))
-	r.Methods(http.MethodGet).Path("/articles").Handler(commonChain.Then(AppHandler{articleController.Index}))
-	r.Methods(http.MethodGet).Path("/articles/{id}").Handler(commonChain.Then(AppHandler{articleController.Show}))
+	gasOilController := controller.NewGaOil()
+	r.Methods(http.MethodGet).Path("/gasoil").Handler(commonChain.Then(AppHandler{gasOilController.Index}))
 
-	articleCommentController := controller.NewArticleComment(s.db)
-	r.Methods(http.MethodPost).Path("/articles/{article_id}/comments").Handler(authChain.Then(AppHandler{articleCommentController.Create}))
+	carController := controller.NewCar(s.db)
+	r.Methods(http.MethodGet).Path("/car").Handler(commonChain.Then(AppHandler{carController.Index}))
 
 	r.PathPrefix("").Handler(commonChain.Then(http.StripPrefix("/img", http.FileServer(http.Dir("./img")))))
 	return r
