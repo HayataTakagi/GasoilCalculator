@@ -3,7 +3,7 @@ package controller
 import (
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
-	"github.com/HayataTakagi/treasure-app/model"
+	"github.com/HayataTakagi/GasoilCalculator/model"
 	"net/http"
 	"os"
 	"strconv"

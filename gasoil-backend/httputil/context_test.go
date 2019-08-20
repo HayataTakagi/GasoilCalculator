@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/HayataTakagi/treasure-app/model"
+	"github.com/HayataTakagi/GasoilCalculator/model"
 )
 
 func TestUserContextValue(t *testing.T) {

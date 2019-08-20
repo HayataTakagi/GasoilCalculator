@@ -5,8 +5,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/HayataTakagi/treasure-app/httputil"
-	"github.com/HayataTakagi/treasure-app/repository"
+	"github.com/HayataTakagi/GasoilCalculator/httputil"
+	"github.com/HayataTakagi/GasoilCalculator/repository"
 
 	"github.com/jmoiron/sqlx"
 )

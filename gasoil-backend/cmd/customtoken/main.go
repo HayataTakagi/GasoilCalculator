@@ -12,7 +12,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	"github.com/HayataTakagi/treasure-app/firebase"
+	"github.com/HayataTakagi/GasoilCalculator/firebase"
 )
 
 type FirebaseCustomToken struct {

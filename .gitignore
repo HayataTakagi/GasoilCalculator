@@ -38,3 +38,6 @@ Temporary Items
 .apdisk
 
 # End of https://www.gitignore.io/api/macos
+
+gasoil-backend/database/mysql/data
+gasoil-backend/database/mysql/password.yml

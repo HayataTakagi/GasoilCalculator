@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	server "github.com/HayataTakagi/treasure-app"
+	server "github.com/HayataTakagi/GasoilCalculator"
 )
 
 func main() {

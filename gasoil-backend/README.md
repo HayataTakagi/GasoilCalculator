@@ -18,7 +18,7 @@ https://go-talks.appspot.com/github.com/voyagegroup/talks/2019/treasure-go-day2/
 which goose || GO111MODULE=off go get -u github.com/pressly/goose/cmd/goose
 /Users/j-chikamori/go/bin/goose
 docker-compose up -d
-ptreasure-app-db is up-to-date
+GasoilCalculator-db is up-to-date
 mysql -u root -h localhost --protocol tcp -e "create database \`treasure_app\`" -p
 Enter password:
 goose -dir migrations mysql "root:password@tcp(127.0.0.1:3306)/treasure_app" up
@@ -72,7 +72,7 @@ PORT=1991
 1. ダウンロードした鍵を、 `$HOME/.config/gcloud/application_default_credentials.json` へリネームして置く (もしくは、`.env` の `GOOGLE_APPLICATION_CREDENTIALS` に設定ファイルの場所を教える)
 
 ```console
-❯ mv /Users/j-chikamori/Downloads/treasure-app-demo-pei-firebase-adminsdk-92eds-2cb2584124.json $HOME/.config/gcloud/application_default_credentials.json
+❯ mv /Users/j-chikamori/Downloads/GasoilCalculator-demo-pei-firebase-adminsdk-92eds-2cb2584124.json $HOME/.config/gcloud/application_default_credentials.json
 ```
 
 ## 4. Firebaseユーザーの作成

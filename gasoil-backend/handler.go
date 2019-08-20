@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/HayataTakagi/treasure-app/httputil"
+	"github.com/HayataTakagi/GasoilCalculator/httputil"
 )
 
 type AppHandler struct {

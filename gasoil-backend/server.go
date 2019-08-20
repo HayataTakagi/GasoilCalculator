@@ -13,11 +13,11 @@ import (
 	"github.com/jmoiron/sqlx"
 	"github.com/justinas/alice"
 	"github.com/rs/cors"
-	"github.com/HayataTakagi/treasure-app/controller"
-	db2 "github.com/HayataTakagi/treasure-app/db"
-	"github.com/HayataTakagi/treasure-app/firebase"
-	"github.com/HayataTakagi/treasure-app/middleware"
-	"github.com/HayataTakagi/treasure-app/sample"
+	"github.com/HayataTakagi/GasoilCalculator/controller"
+	db2 "github.com/HayataTakagi/GasoilCalculator/db"
+	"github.com/HayataTakagi/GasoilCalculator/firebase"
+	"github.com/HayataTakagi/GasoilCalculator/middleware"
+	"github.com/HayataTakagi/GasoilCalculator/sample"
 )
 
 type Server struct {

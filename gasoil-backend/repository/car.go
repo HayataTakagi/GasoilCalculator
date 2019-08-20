@@ -2,7 +2,7 @@ package repository
 
 import (
 	"github.com/jmoiron/sqlx"
-	"github.com/HayataTakagi/treasure-app/model"
+	"github.com/HayataTakagi/GasoilCalculator/model"
 )
 
 func AllCar(db *sqlx.DB) ([]model.Car, error) {

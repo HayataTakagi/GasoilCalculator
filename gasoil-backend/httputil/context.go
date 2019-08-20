@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/pkg/errors"
-	"github.com/HayataTakagi/treasure-app/model"
+	"github.com/HayataTakagi/GasoilCalculator/model"
 )
 
 type contextKey string

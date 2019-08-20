@@ -1,4 +1,4 @@
-# treasure-app
+# GasoilCalculator
 
 > Remember, Makefile is always your friend
 
