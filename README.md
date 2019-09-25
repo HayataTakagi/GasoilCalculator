@@ -1,4 +1,5 @@
 # GasoilCalculator
+- VOYAGE GROUPのインターン[Treasure](https://voyagegroup.com/internship/treasure/)の中間課題として作成
 
 ## 交通費(車)計算サービス
 ### 概要
